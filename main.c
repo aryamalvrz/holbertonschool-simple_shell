@@ -1,42 +1,60 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <string.h>
-#include <stdlib.h>
+#include "main.h"
 
-int main(__attribute__((unused))int argc, __attribute__((unused))char *argv[], char *envp[])
+/**
+ * main - Runs the Gates of s(H)ell
+ *
+ * @ac: argument count
+ * @av: argument vector
+ * @env: environment
+ *
+ * Description: This program runs in a infinite loop. Inside this loop we
+ * checked it we are in interactive mode, if so we print the prompt. Then
+ * we processed to get the command inputed by the user. That input is cross
+ * checked to see if they press the Ctrl-d command. If of the program will
+ * print a new line and exit. Otherwise it will checke it the input is a new
+ * line (the user just pressed enter), if so she will print the prompt.
+ * Afterwards we tokenize the command, then we check if its a built-in,
+ * otherwise we execute the commmand, and then free for next use.
+ *
+ * Return: 0
+ */
+int main(int ac, char **av,  char **env)
 {
-    pid_t child;
-    char *command[16], *tok, *lineptr = NULL;
-    size_t i, n;
-    int status;
+	char *ptr = NULL, **tokens = NULL;
+	size_t n = 0;
+	int flag;
 
-    while (1)
-    {
-      printf("$ ");
-      if (getline(&lineptr, &n, stdin) == -1)
-          break;
-      tok = strtok(lineptr, " \n\t\r");
-      for (i = 0; tok != NULL; i++)
-      {
-          command[i] = tok;
-          tok = strtok(NULL, " \n\t\r");
-      }
-      command[i] = NULL;
-      child = fork();
-      if (child == 0)
-      {
-          if (execve(command[0], command, envp))
-          {
-              perror("execve");
-              exit(EXIT_FAILURE);
-          }
-      }
-      if (child > 0)
-         wait(&status);
-    }
-	putchar('\n');
-    free(lineptr);
-    exit(status);
+	(void) ac;
+	(void) av;
+
+	while (1)
+	{
+		if (isatty(0))
+			write(1, "$ ", 2);
+
+		flag = getline(&ptr, &n, stdin);
+
+		if (flag == EOF)
+		{
+			free(ptr);
+			write(1, "\n", 1);
+			exit(EXIT_SUCCESS);
+		}
+		if (ptr[0] == '\n')
+		{
+			free(ptr);
+			ptr = NULL;
+			write(1, "$ ", 2);
+			continue;
+		}
+
+		tokens = tokenization(ptr, " \n");
+		comp_exec(tokens, ptr, env);
+		free(ptr);
+		ptr = NULL;
+	}
+	free_array(tokens);
+	free(ptr);
+	ptr = NULL;
+	return (0);
 }
