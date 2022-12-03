@@ -66,6 +66,14 @@ $ echo "qwerty" | ./././hsh
 ./././hsh: 1: qwerty: not found
 $
 
+Example of interactive:
+
+$ ./hsh
+$
+
+Example of non-intercative:
+$ echo "/bin/ls" | ./hsh
+
 ## Compilation
 
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
