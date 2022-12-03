@@ -7,15 +7,6 @@
  * @av: argument vector
  * @env: environment
  *
- * Description: This program runs in a infinite loop. Inside this loop we
- * checked it we are in interactive mode, if so we print the prompt. Then
- * we processed to get the command inputed by the user. That input is cross
- * checked to see if they press the Ctrl-d command. If of the program will
- * print a new line and exit. Otherwise it will checke it the input is a new
- * line (the user just pressed enter), if so she will print the prompt.
- * Afterwards we tokenize the command, then we check if its a built-in,
- * otherwise we execute the commmand, and then free for next use.
- *
  * Return: 0
  */
 int main(int ac, char **av,  char **env)
