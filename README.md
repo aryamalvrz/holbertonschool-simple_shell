@@ -1,4 +1,4 @@
-# Project Description
+# Project Name Simple Shell
 
   Write a simple UNIX command interpreter, "The Gates of S(h)ell".
 
