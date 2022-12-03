@@ -7,13 +7,6 @@
  * @delim: Delimiter
  *
  * Return: Array of tokens
- *
- * Description: We first allocate space for the array of tokens. We extract
- * our fits token and save it in token. We start a loop that will run while
- * token have something. Inside we allocate space for the posision inside
- * the index. Then we copy the string from token into the index. We clean
- * out token variable and start the process again. After our while our last
- * index is assign as NULL, to mark the end of the array.
  */
 
 char **tokenization(char *ptr, char *delim)
