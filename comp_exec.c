@@ -6,11 +6,8 @@
  * @tokens: Our array of tokens
  * @env: Our enviorment variables
  * @ptr: Command string (it comes from getline)
- * Return: Always (1)
  *
- * Description: First our function will compare our token position 0
- * with the built-in (exit & env). If its not a built in he will check
-  for the command and print out the result of the execution.
+ * Return: Always (1)
  */
 
 int comp_exec(char **tokens, char *ptr, char **env)
