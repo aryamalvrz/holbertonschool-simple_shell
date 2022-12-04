@@ -69,9 +69,9 @@ $
 Example of interactive:
 
 $ ./hsh
-$
 
 Example of non-intercative:
+
 $ echo "/bin/ls" | ./hsh
 
 ## Compilation
