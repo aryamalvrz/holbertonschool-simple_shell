@@ -14,8 +14,8 @@ char **path(char **env)
 	char *path, **copy_path, **path_tok;
 
 	while (env[i])
-	{
-		if (_strcmp(env[i], "PATH") == 0)
+{
+		if (_strncmp(env[i], "PATH", 4) == 0)
 		{
 			path = _strdup(env[i]);
 			copy_path = tokenization(path, "=");
