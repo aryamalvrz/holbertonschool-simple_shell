@@ -19,7 +19,7 @@ int main(int ac, char **av,  char **env)
 	(void) av;
 
 	while (1)
-	{
+{
 		if (isatty(0))
 			write(1, "$ ", 2);
 
@@ -28,24 +28,17 @@ int main(int ac, char **av,  char **env)
 		if (flag == EOF)
 		{
 			free(ptr);
-			write(1, "\n", 1);
 			exit(EXIT_SUCCESS);
 		}
-		if (ptr[0] == '\n')
+		if (ptr[0] == '\n' || ptr[0] == ' ')
 		{
 			free(ptr);
 			ptr = NULL;
-			write(1, "$ ", 2);
 			continue;
 		}
 
 		tokens = tokenization(ptr, " \n");
 		comp_exec(tokens, ptr, env);
-		free(ptr);
-		ptr = NULL;
 	}
-	free_array(tokens);
-	free(ptr);
-	ptr = NULL;
 	return (0);
 }
